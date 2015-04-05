@@ -11,6 +11,7 @@ public class Arvore {
 	public void insere(int x){
 		raiz = insere(raiz,x);
 	} 
+	
 	private No insere(No r, int x){
 		if(r == null){
 			No novo = new No(x);
@@ -78,6 +79,81 @@ public class Arvore {
 		}
 	}
 	
+	//mostrar iterativamente
+	private void mostrarPreOrdemIte(No no){
+		
+	}
 	
+	private void mostrarInOrdemIte(No no){
+			
+	}
+	
+	private void mostrarPosOrdemIte(No no){
+		
+	}
+	
+	//busca
+	No BuscaR(No p, int k){
+		if (p != null){
+			if (k < p.dado)
+				p = BuscaR(p.esq, k);
+			else if (k > p.dado)
+				p = BuscaR(p.dir, k);
+			}
+		return p;
+	}
+	
+	
+	//remocao
+	
+	//auxiliares
+	No maisDireita(No p) {
+		while (p.dir != null)
+			p = p.dir;
+	
+		return p;
+	}
+	
+	No maisEsquerda(No p) {
+		while (p.esq != null)
+			p = p.esq;
+		
+		return p;
+	}
+	
+	No remove(No p, int k){
+	// se n~ao encontrou volta na recurs~ao
+		if (p == null) 
+			return null;
+		else {
+			if (k < p.dado) 
+				p.esq = remove(p.esq, k);
+			else if (k > p.dado) 
+				p.dir = remove(p.dir, k);
+			else { // se encontrou o no
+			
+				// verifica se o n´o tem filho a esquerda
+				if (p.esq != null) {
+					// buscar o filho mais a
+					// direita da subarvore esquerda
+					No aux = maisDireita(p.esq);
+					p.dado = aux.dado;
+					// remover o filho
+					// mais a direita da subarvore esquerda
+					p.esq = remove(p.esq, aux.dado);
+				} else if (p.dir != null) {
+					// buscar o filho mais a
+					// esquerda da subarvore direita
+					No aux = maisEsquerda(p.dir);
+					p.dado = aux.dado;
+					// remover o filho mais a
+					// esquerda da subarvore direita
+					p.dir = remove(p.dir, aux.dado);
+				} else 
+					p = null;
+			}
+		}
+		return p;
+	} 
 
 }
